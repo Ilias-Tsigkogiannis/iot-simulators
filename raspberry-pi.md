@@ -31,6 +31,7 @@ Now you are ready to boot your emulator for the first time. In your command prom
 e.g. `qemu-system-arm -kernel kernel-qemu-4.4.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append “root=/dev/sda2 panic=1 rootfstype=ext4 rw” -drive “file=2016-09-23-raspbian-jessie.img,index=0,media=disk,format=raw” -redir tcp:2222::22`
 
 Notes:
+
 1. If you see an error about missing dll files, then you can download them from https://qemu.weilnetz.de/w32/dll/.
 2. You will see a warning saying that the -redir option has been replaced by the `-netdev` option. I am still using `-redir`, since I could not understand how to use -netdev. If you know how, please leave a comment below and I will replace the command.
 
