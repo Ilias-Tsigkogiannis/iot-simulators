@@ -8,7 +8,7 @@ The easiest way to download and install QEMU is to download the 32-bit binaries 
 
 ## 2. Download Raspbian
 
-You can download the latest Raspbian image from Raspberry Pi’s website. You can either download the full image (https://downloads.raspberrypi.org/raspbian_latest) or the “lite” version (https://downloads.raspberrypi.org/raspbian_lite_latest), which is smaller. The filename that I downloaded is 2016-09-23-raspbian-jessie.img .After you download the image, you should extract it to the same directory as QEMU.
+You can download the latest Raspbian image from Raspberry Pi’s website. You can either download the full image (https://downloads.raspberrypi.org/raspbian_latest) or the “lite” version (https://downloads.raspberrypi.org/raspbian_lite_latest), which is smaller. The filename that I downloaded is 2016-09-23-raspbian-jessie.img. After you download the image, you should extract it to the same directory as QEMU.
 
 ## 3. Download the kernel
 
@@ -31,8 +31,8 @@ Now you are ready to boot your emulator for the first time. In your command prom
 e.g. `qemu-system-arm -kernel kernel-qemu-4.4.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append “root=/dev/sda2 panic=1 rootfstype=ext4 rw” -drive “file=2016-09-23-raspbian-jessie.img,index=0,media=disk,format=raw” -redir tcp:2222::22`
 
 Notes:
-1.If you see an error about missing dll files, then you can download them from https://qemu.weilnetz.de/w32/dll/.
-2.You will see a warning saying that the -redir option has been replaced by the -netdev option. I am still using -redir, since I could not understand how to use -netdev. If you know how, please leave a comment below and I will replace the command.
+1. If you see an error about missing dll files, then you can download them from https://qemu.weilnetz.de/w32/dll/.
+2. You will see a warning saying that the -redir option has been replaced by the `-netdev` option. I am still using `-redir`, since I could not understand how to use -netdev. If you know how, please leave a comment below and I will replace the command.
 
 After the emulator finishes booting, you will see a terminal window saying that you have started in emergency mode, instead of the default mode, due to an error. In order to fix this, you will need to create the file /etc/udev/rules.d/90-qemu.rules using your favorite editor, e.g.
 
@@ -46,7 +46,7 @@ KERNEL==”sda2″, SYMLINK+=”root”
 ```
 Note: You are currently using the British locale (en-GB), that’s why some characters do not correspond to the standard American keyboard, e.g. the character ” is typed when you press the key @ (and the opposite). We will fix this in a following step.
 
-After saving the file, you can either close the emulator or issue the reboot command (sudo shutdown -r now).
+After saving the file, you can either close the emulator or issue the reboot command (`sudo shutdown -r now`).
 
 Note: Previous versions of QEMU (before v2.6.0) required changes in /etc/ld.so.preload. However, this is not needed anymore.
 
@@ -107,7 +107,7 @@ Swap:         1023      0      1023
 ```
 ## 8. Use SSH for better performance
 
-Another way to improve performance is to access your Raspberry Pi using SSH and not using the GUI. In order to enable this, we have mapped port 2222 from your system to port 22 of the emulator. This was done using the option “-redir tcp:2222::22” in the command that starts the emulator (section #4). So, all you need to do is to ssh in port 2222 of your system.
+Another way to improve performance is to access your Raspberry Pi using SSH and not using the GUI. In order to enable this, we have mapped port 2222 from your system to port 22 of the emulator. This was done using the option `-redir tcp:2222::22` in the command that starts the emulator (section #4). So, all you need to do is to ssh in port 2222 of your system.
 
 In order to do that, you need an ssh client, such as putty (which you can download from https://the.earth.li/~sgtatham/putty/latest/x86/putty.exe). After you download and run putty, you need to go to the tab “Session” and type pi@127.0.0.1 in the “Host Name (or IP Address)” box, as well as 2222 in the “Port” box. Then you can click on the “Open” button to connect. You can use the following credentials:
 ```
